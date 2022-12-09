@@ -22,10 +22,19 @@ defmodule Identicon do
   end
 
   def build_grid(image) do
+    # My try:
+    # for row <- Enum.chunk_every(image.hex, 3, 3, :discard) do
+    #   mirror_row(row)
+    # end
 
-    for row <- Enum.chunk_every(image.hex, 3, 3, :discard) do
-      mirror_row(row)
-    end
+    grid =
+      image.hex
+      |> Enum.chunk_every(3, 3, :discard)
+      |> Enum.map(&mirror_row/1)
+      |> List.flatten
+      |> Enum.with_index
+
+    %Identicon.Image{ image | grid: grid}
   end
 
   def mirror_row(row) do
