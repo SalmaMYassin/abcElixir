@@ -18,6 +18,5 @@ defmodule Identicon do
   def pick_color(%Identicon.Image{hex: [r , g, b | _tail]} = input) do
     # used a tuple instead of a list because each index has a perticular meaning
     %Identicon.Image{input | color: {r,g,b}}
-
   end
 end
